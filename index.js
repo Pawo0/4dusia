@@ -4,68 +4,52 @@ import ReactDOMClient from "https://esm.sh/react-dom/client/?dev";
 const birthdayActivities = [
     {
         id: 1,
-        time: "17:00",
+        time: "17:00 - 17:45",
         title: "Wyruszenie w podroz",
-        description: "Swietowanie dnia urodzin rozpoczniemy od osobistego odebrania solenizatki z miejsca jej osrodku pozyskiwania surowcow materialnych niezbednych do przetrwania w miejsiek jungli",
+        description: "Swietowanie dnia urodzin rozpoczniemy od osobistego odebrania solenizatki z miejsca jej osrodku pozyskiwania surowcow materialnych niezbednych do przetrwania w miejskiej jungli",
         color: "bg-pink-500",
         icon: "fa-solid fa-mug-hot"
     },
     {
         id: 2,
-        time: "9:30",
-        title: "Śniadanie urodzinowe",
-        description: "Ulubione śniadanie solenizanta",
-        color: "bg-yellow-500",
-        icon: "fa-solid fa-utensils"
-    },
-    {
-        id: 3,
-        time: "11:00",
-        title: "Otwarcie prezentów",
-        description: "Czas na rozpakowanie wszystkich niespodzianek",
+        time: "NIESPODZIEWANIE",
+        title: "Posiłek w trakcie podróży",
+        description: "Tutaj wystepuje pelna dowolnosc - z mocnym priorytetem w obrebie Bonarki. Oraz z personalna sugestia Domino Pizza",
         color: "bg-purple-500",
         icon: "fa-solid fa-gift"
     },
     {
+        id: 3,
+        time: "19:00 - 20:30",
+        title: "Wr000lkowanie",
+        description: "Powrocimy wspomnieniami do odjazdowej jazdy na odjazdowych wrotkach. Tym razem postaramy sie za wszelka cene utrzymac w stanie nienaruszonym wszelakie konczyny solenizatki",
+        color: "bg-yellow-500",
+        icon: "fa-solid fa-utensils"
+    },
+    {
         id: 4,
-        time: "13:00",
-        title: "Obiad z rodziną",
-        description: "Wspólny obiad w gronie najbliższych",
+        time: "21:00 - 23:00",
+        title: "Noc muzeów",
+        description: "Wspólnie wybierzemy sie na nocne zwiedzanie muzeum. Nie byle jakiego! Bedzie mozna dokladnie przetestowac recznie wszystkie eksponaty. Widzimy sie w muzeum gier wideo!",
         color: "bg-green-500",
         icon: "fa-solid fa-bowl-food"
     },
     {
         id: 5,
-        time: "15:30",
-        title: "Gry i zabawy",
-        description: "Czas na wspólne gry i aktywności",
+        time: "23:00 - 00:00",
+        title: "Bezpieczny powrót do domu",
+        description: "Po przezytych aktywnosciach nastapi wypragniony powrot do domu. Nie byle czym! Opel Corsa 1.2 2004r melduje sie na miejscu. Zapewniamy pelna mozliwosc sterowania towarzyszacym podkladem muzycznym",
         color: "bg-blue-500",
         icon: "fa-solid fa-gamepad"
     },
     {
         id: 6,
-        time: "18:00",
-        title: "Tort urodzinowy",
-        description: "Zdmuchnięcie świeczek i krojenie tortu",
+        time: "10.04.2022 - 4:3V3R",
+        title: "Kochanie solenizantki",
+        description: "(Nieprzerwanie w dni robocze)",
         color: "bg-red-500",
         icon: "fa-solid fa-cake-candles"
     },
-    {
-        id: 7,
-        time: "19:30",
-        title: "Przyjęcie",
-        description: "Przyjęcie z przyjaciółmi i znajomymi",
-        color: "bg-indigo-500",
-        icon: "fa-solid fa-champagne-glasses"
-    },
-    {
-        id: 8,
-        time: "22:00",
-        title: "Pokaz fajerwerków",
-        description: "Specjalny pokaz na zakończenie dnia",
-        color: "bg-emerald-500",
-        icon: "fa-solid fa-sparkles"
-    }
 ];
 
 function ActivityTile({ activity, isActive, onClick }) {
@@ -120,7 +104,7 @@ function App() {
                     <p className="text-gray-300 text-xl">Kliknij na kafelek, aby zobaczyć szczegóły aktywności</p>
                 </header>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {birthdayActivities.map((activity) => (
                         <ActivityTile
                             key={activity.id}
