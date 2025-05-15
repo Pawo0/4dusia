@@ -1,4 +1,4 @@
-import React, { useState } from "https://esm.sh/react/?dev";
+import React, { useState, useEffect } from "https://esm.sh/react/?dev";
 import ReactDOMClient from "https://esm.sh/react-dom/client/?dev";
 
 const birthdayActivities = [
@@ -84,8 +84,90 @@ function ActivityDetails({ activity }) {
     );
 }
 
+function formatTimeLeft(milliseconds) {
+    if (milliseconds <= 0) return "0";
+
+    const seconds = Math.floor((milliseconds / 1000) % 60);
+    const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
+    const hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 24);
+
+    return `${hours}h ${minutes}m ${seconds}s`;
+}
+
 function App() {
     const [selectedActivity, setSelectedActivity] = useState(null);
+    const [visibleActivities, setVisibleActivities] = useState([]);
+    const [nextRevealTime, setNextRevealTime] = useState(null);
+    const [timeToNextReveal, setTimeToNextReveal] = useState("");
+
+    useEffect(() => {
+        // Ustaw datę początkową na 15 maja 23:00
+        const startDate = new Date(2025, 4, 15, 23, 0, 0); // Miesiące są indeksowane od 0
+
+        const updateVisibleActivities = () => {
+            const now = new Date();
+            const timeDiff = now - startDate;
+
+            // Ile 3-godzinnych okresów minęło od czasu startu
+            const hoursPassed = timeDiff / (1000 * 60 * 60);
+            const periodsOf3Hours = Math.floor(hoursPassed / 3);
+
+            // Odkryj odpowiednią liczbę kafelków (maksymalnie wszystkie)
+            const numberOfTilesToShow = Math.min(periodsOf3Hours + 1, birthdayActivities.length);
+
+            // Utwórz listę widocznych ID
+            const newVisibleActivities = birthdayActivities
+                .slice(0, numberOfTilesToShow)
+                .map(activity => activity.id);
+
+            setVisibleActivities(newVisibleActivities);
+
+            // Oblicz czas do następnego odkrycia
+            if (numberOfTilesToShow < birthdayActivities.length) {
+                const nextPeriodEndTime = startDate.getTime() + ((periodsOf3Hours + 1) * 3 * 60 * 60 * 1000);
+                setNextRevealTime(nextPeriodEndTime);
+
+                const timeRemaining = nextPeriodEndTime - now.getTime();
+                setTimeToNextReveal(formatTimeLeft(timeRemaining));
+            } else {
+                setNextRevealTime(null);
+                setTimeToNextReveal("");
+            }
+        };
+
+        // Wywołaj funkcję od razu, aby ustawić początkowy stan
+        updateVisibleActivities();
+
+        // Aktualizuj co sekundę
+        const interval = setInterval(() => {
+            updateVisibleActivities();
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    // Pomocnicza funkcja do przyspieszania czasu (tylko do testów)
+    const advanceTime = () => {
+        // Zasymuluj przyspieszenie czasu o 3 godziny
+        const fakeCurrent = new Date();
+        fakeCurrent.setHours(fakeCurrent.getHours() + 3);
+
+        // Tymczasowo zastąp oryginalną metodę Date.now, by zasymulować przyspieszony czas
+        const originalNow = Date.now;
+        Date.now = () => fakeCurrent.getTime();
+
+        // Utwórz nową instancję Date z przyspieszonym czasem
+        const testNow = new Date();
+
+        // Przywróć oryginalną implementację
+        Date.now = originalNow;
+
+        // Losowo dodaj kolejną aktywność do widocznych
+        if (visibleActivities.length < birthdayActivities.length) {
+            const nextActivityId = birthdayActivities[visibleActivities.length].id;
+            setVisibleActivities([...visibleActivities, nextActivityId]);
+        }
+    };
 
     const handleActivityClick = (id) => {
         const activity = birthdayActivities.find(act => act.id === id);
@@ -101,18 +183,38 @@ function App() {
                         Plan Dnia Dusi
                         <i className="fa-solid fa-cake-candles text-yellow-400 ml-3"></i>
                     </h1>
-                    <p className="text-gray-300 text-xl">Kliknij na kafelek, aby zobaczyć szczegóły aktywności</p>
+                    <p className="text-gray-300 text-xl mb-4">Kliknij na kafelek, aby zobaczyć szczegóły aktywności</p>
+
+                    {visibleActivities.length < birthdayActivities.length && (
+                        <div className="mb-6">
+                            <p className="text-gray-300 text-lg">
+                                Odkryto {visibleActivities.length} z {birthdayActivities.length} aktywności
+                            </p>
+                            <p className="text-yellow-400 text-lg">
+                                Następna aktywność pojawi się za: {timeToNextReveal}
+                            </p>
+                        </div>
+                    )}
+
+                    {/*<button*/}
+                    {/*    onClick={advanceTime}*/}
+                    {/*    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"*/}
+                    {/*>*/}
+                    {/*    Odkryj kolejną aktywność (do testów)*/}
+                    {/*</button>*/}
                 </header>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    {birthdayActivities.map((activity) => (
-                        <ActivityTile
-                            key={activity.id}
-                            activity={activity}
-                            isActive={selectedActivity?.id === activity.id}
-                            onClick={handleActivityClick}
-                        />
-                    ))}
+                    {birthdayActivities
+                        .filter(activity => visibleActivities.includes(activity.id))
+                        .map((activity) => (
+                            <ActivityTile
+                                key={activity.id}
+                                activity={activity}
+                                isActive={selectedActivity?.id === activity.id}
+                                onClick={handleActivityClick}
+                            />
+                        ))}
                 </div>
 
                 {selectedActivity && <ActivityDetails activity={selectedActivity} />}
