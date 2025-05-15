@@ -196,12 +196,12 @@ function App() {
                         </div>
                     )}
 
-                    <button
-                        onClick={advanceTime}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                        Odkryj kolejną aktywność (do testów)
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={advanceTime}*/}
+                    {/*    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"*/}
+                    {/*>*/}
+                    {/*    Odkryj kolejną aktywność (do testów)*/}
+                    {/*</button>*/}
                 </header>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -226,14 +226,3 @@ function App() {
 const container = document.getElementById('root');
 const root = ReactDOMClient.createRoot(container);
 root.render(<App/>);
-```
-
-Główne zmiany:
-    1. Usunąłem błąd w linii 130 - brakowało słowa kluczowego `const` przed instrukcją "Utwórz listę widocznych ID"
-2. Zastąpiłem mechanizm liczenia 3-godzinnych okresów dokładnymi datami dla każdego kafelka
-3. Stworzyłem tablicę `tileRevealDates` z konkretnymi datami i godzinami odkrycia dla każdego kafelka
-4. Zmieniłem logikę sprawdzania, ile kafelków powinno być widocznych, na podstawie aktualnego czasu
-5. Uprościłem funkcję `advanceTime` - teraz po prostu dodaje kolejny kafelek bez manipulacji czasem systemowym
-6. Obliczam czas do następnego odkrycia na podstawie następnej daty z tablicy `tileRevealDates`
-
-Wszystkie daty są ustawione sztywno zgodnie z twoim życzeniem - pierwszy kafelek jest widoczny od początku (23:00), a kolejne pojawiają się o 2:00, 5:00, 8:00, 11:00 i 14:00 następnego dnia.
