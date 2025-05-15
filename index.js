@@ -8,7 +8,7 @@ const birthdayActivities = [
         title: "Wyruszenie w podroz",
         description: "Swietowanie dnia urodzin rozpoczniemy od osobistego odebrania solenizatki z miejsca jej osrodku pozyskiwania surowcow materialnych niezbednych do przetrwania w miejskiej jungli",
         color: "bg-pink-500",
-        icon: "fa-solid fa-mug-hot"
+        icon: "fa-solid fa-car"
     },
     {
         id: 2,
@@ -16,7 +16,7 @@ const birthdayActivities = [
         title: "Posiłek w trakcie podróży",
         description: "Tutaj wystepuje pelna dowolnosc - z mocnym priorytetem w obrebie Bonarki. Oraz z personalna sugestia Domino Pizza",
         color: "bg-purple-500",
-        icon: "fa-solid fa-gift"
+        icon: "fa-solid fa-cutlery"
     },
     {
         id: 3,
@@ -24,7 +24,7 @@ const birthdayActivities = [
         title: "Wr000lkowanie",
         description: "Powrocimy wspomnieniami do odjazdowej jazdy na odjazdowych wrotkach. Tym razem postaramy sie za wszelka cene utrzymac w stanie nienaruszonym wszelakie konczyny solenizatki",
         color: "bg-yellow-500",
-        icon: "fa-solid fa-utensils"
+        icon: "fa-solid fa-wheelchair-alt"
     },
     {
         id: 4,
@@ -32,7 +32,7 @@ const birthdayActivities = [
         title: "Noc muzeów",
         description: "Wspólnie wybierzemy sie na nocne zwiedzanie muzeum. Nie byle jakiego! Bedzie mozna dokladnie przetestowac recznie wszystkie eksponaty. Widzimy sie w muzeum gier wideo!",
         color: "bg-green-500",
-        icon: "fa-solid fa-bowl-food"
+        icon: "fa-solid fa-gamepad"
     },
     {
         id: 5,
@@ -40,7 +40,7 @@ const birthdayActivities = [
         title: "Bezpieczny powrót do domu",
         description: "Po przezytych aktywnosciach nastapi wypragniony powrot do domu. Nie byle czym! Opel Corsa 1.2 2004r melduje sie na miejscu. Zapewniamy pelna mozliwosc sterowania towarzyszacym podkladem muzycznym",
         color: "bg-blue-500",
-        icon: "fa-solid fa-gamepad"
+        icon: "fa-solid fa-fighter-jet"
     },
     {
         id: 6,
@@ -48,7 +48,7 @@ const birthdayActivities = [
         title: "Kochanie solenizantki",
         description: "(Nieprzerwanie w dni robocze)",
         color: "bg-red-500",
-        icon: "fa-solid fa-cake-candles"
+        icon: "fa-solid fa-heart"
     },
 ];
 
@@ -98,7 +98,7 @@ function App() {
                 <header className="text-center mb-12">
                     <h1 className="text-4xl font-bold text-white mb-2">
                         <i className="fa-solid fa-cake-candles text-yellow-400 mr-3"></i>
-                        Plan Dnia Urodzinowego
+                        Plan Dnia Dusi
                         <i className="fa-solid fa-cake-candles text-yellow-400 ml-3"></i>
                     </h1>
                     <p className="text-gray-300 text-xl">Kliknij na kafelek, aby zobaczyć szczegóły aktywności</p>
